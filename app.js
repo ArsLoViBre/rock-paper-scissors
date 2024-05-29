@@ -1,41 +1,71 @@
-function getComputerChoice(){
-    let choice
+let humanScore = 0
+let computerScore = 0
+
+function getComputerChoice() {
     let num = Math.floor(Math.random() * 3)
-    switch (num) {
-        case 0:
-            choice = 'rock';
-            break
-        case 1:
-            choice = 'paper';
-            break
-        case 2:
-            choice = 'scissors';
-            break
-        default:
-            throw new Error("Something went wrong with getComputerChoice function");
-    }
-    return choice
+    return num
 }
 
-console.log(getComputerChoice())
-
-function getHumanChoice(){
-    let choice
+function getHumanChoice() {
     let num = parseInt(prompt("Make a choice:\n 0: Rock\n 1: Paper\n 2: Scissors"))
-    switch (num) {
-        case 0:
-            choice = 'rock';
-            break
-        case 1:
-            choice = 'paper';
-            break
-        case 2:
-            choice = 'scissors';
-            break
-        default:
-            throw new Error("Something went wrong with getHumanChoice function");
-    }
-    return choice
+    return num
 }
 
-console.log(getHumanChoice())
+function counterJudge(msg) {
+    if (msg == "h") {
+        humanScore += 1
+    }
+    else if (msg == "c") {
+        computerScore += 1
+    }
+    else {
+        humanScore = 0
+        computerScore = 0
+    }
+}
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice == computerChoice) {
+        console.log("Draw")
+    }
+    else if (humanChoice == 0) {
+        if (humanChoice + 1 == computerChoice) {
+            console.log("You lost. Paper cover rock.")
+            counterJudge("c")
+        }
+        else if (humanChoice + 2 == computerChoice) {
+            console.log("You win. Rock dulls scissors.")
+            counterJudge("h")
+        }
+    }
+    else if (humanChoice == 1) {
+        if (humanChoice - 1 == computerChoice) {
+            console.log("You win. Paper cover rock.")
+            counterJudge("h")
+        }
+        else if (humanChoice + 1 == computerChoice) {
+            console.log("You lost. Scissors cut paper.")
+            counterJudge("c")
+        }
+    }
+    else if (humanChoice == 2) {
+        if (humanChoice - 1 == computerChoice) {
+            console.log("You win. Scissors cut paper.")
+            counterJudge("h")
+        }
+        else if (humanChoice - 2 == computerChoice) {
+            console.log("You lsot. Rock dulls scissors.")
+            counterJudge("c")
+        }
+    }
+    console.log(`Human ${humanScore} - ${computerScore} Computer`)
+}
+
+
+const computerSelection = getComputerChoice();
+
+console.log("Comp choose: " + computerSelection);
+
+const humanSelection = getHumanChoice();
+
+playRound(humanSelection, computerSelection)
