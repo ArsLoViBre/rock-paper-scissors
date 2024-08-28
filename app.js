@@ -9,7 +9,7 @@ window.onload = () => {
         const divButtons = document.createElement("div");
         divButtons.setAttribute("style", "border-style: solid; border-color: black; padding: 40px; display: flex; gap: 40px;");
         const divResults = document.createElement("div");
-        divResults.setAttribute("style", "border-style: solid; border-color: black; min-height: 300px;");
+        divResults.setAttribute("style", "border-style: solid; border-color: black; min-height: 300px; display: flex; align-items: center; flex-direction: column; flex-wrap: wrap; justify-content: center; gap: 40px");
 
         const rockBtn = document.createElement("button");
         rockBtn.setAttribute("id", 0);
@@ -23,10 +23,14 @@ window.onload = () => {
         scissorsBtn.setAttribute("id", 2);
         scissorsBtn.setAttribute("style", "flex: 1 1 0;");
         scissorsBtn.innerText = "SCISSORS";
+        let resultsText = document.createElement("p");
+        let scoreText = document.createElement("p");
 
         divButtons.appendChild(rockBtn);
         divButtons.appendChild(paperBtn);
         divButtons.appendChild(scissorsBtn);
+        divResults.appendChild(resultsText);
+        divResults.appendChild(scoreText);
         body.appendChild(divButtons);
         body.appendChild(divResults);
 
@@ -43,17 +47,6 @@ window.onload = () => {
             })
         });
 
-        // function getHumanChoice() {
-        //     let num = parseInt(prompt("Make a choice:\n 0: Rock\n 1: Paper\n 2: Scissors"))
-        //     if (0 <= num & num <= 3) {
-        //         return num
-        //     }
-        //     else {
-        //         window.alert("You made a wrong choice. Time and space collapsed.")
-        //         throw new Error("You made a wrong choice. Time and space collapsed.")
-        //     }
-        // }
-
         function counterJudge(msg) {
             if (msg == "h") {
                 humanScore += 1
@@ -69,42 +62,40 @@ window.onload = () => {
 
         function playRound(humanChoice, computerChoice) {
             if (humanChoice == computerChoice) {
-                console.log("Draw")
+                resultsText.textContent = "Draw";
             }
             else if (humanChoice == 0) {
                 if (humanChoice + 1 == computerChoice) {
-                    console.log("You lost. Paper cover rock.")
+                    resultsText.textContent = "You lost. Paper cover rock.";
                     counterJudge("c")
                 }
                 else if (humanChoice + 2 == computerChoice) {
-                    console.log("You win. Rock dulls scissors.")
+                    resultsText.textContent = "You win. Rock dulls scissors.";
                     counterJudge("h")
                 }
             }
             else if (humanChoice == 1) {
                 if (humanChoice - 1 == computerChoice) {
-                    console.log("You win. Paper cover rock.")
+                    resultsText.textContent = "You win. Paper cover rock.";
                     counterJudge("h")
                 }
                 else if (humanChoice + 1 == computerChoice) {
-                    console.log("You lost. Scissors cut paper.")
+                    resultsText.textContent = "You lost. Scissors cut paper.";
                     counterJudge("c")
                 }
             }
             else if (humanChoice == 2) {
                 if (humanChoice - 1 == computerChoice) {
-                    console.log("You win. Scissors cut paper.")
+                    resultsText.textContent = "You win. Scissors cut paper.";
                     counterJudge("h")
                 }
                 else if (humanChoice - 2 == computerChoice) {
-                    console.log("You lsot. Rock dulls scissors.")
+                    resultsText.textContent = "You lost. Rock dulls scissors.";
                     counterJudge("c")
                 }
             }
-            console.log(`Human ${humanScore} - ${computerScore} Computer`)
+            scoreText.textContent = `Human ${humanScore} - ${computerScore} Computer`;
         }
-
-        // playRound(getHumanChoice(), getComputerChoice())
 
         // while (rounds > 0) {
         //     playRound(getHumanChoice(), getComputerChoice())
